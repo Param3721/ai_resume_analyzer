@@ -88,13 +88,11 @@ if uploaded_file is not None:
                 height=250
             )
 
-
             # -----------------------------------------
             # CLEAN TEXT
             # -----------------------------------------
 
             cleaned_text = clean_text(resume_text)
-
 
             # -----------------------------------------
             # SKILL EXTRACTION
@@ -120,7 +118,6 @@ if uploaded_file is not None:
                 st.warning(
                     "No matching skills were found in the resume."
                 )
-
 
             # -----------------------------------------
             # JOB ROLE RECOMMENDATIONS
@@ -156,7 +153,6 @@ if uploaded_file is not None:
                     "No suitable job-role matches were found."
                 )
 
-
             # -----------------------------------------
             # TARGET ROLE
             # -----------------------------------------
@@ -176,7 +172,6 @@ if uploaded_file is not None:
                 ]
             )
 
-
             # -----------------------------------------
             # SKILL GAP ANALYSIS
             # -----------------------------------------
@@ -184,6 +179,32 @@ if uploaded_file is not None:
             found_skills, missing_skills = generate_skill_gap(
                 detected_skills,
                 target_role
+            )
+
+            total_required_skills = (
+                len(found_skills) + len(missing_skills)
+            )
+
+            if total_required_skills > 0:
+
+                readiness_score = (
+                    len(found_skills) / total_required_skills
+                ) * 100
+
+            else:
+
+                readiness_score = 0
+
+            st.write(
+                f"### {target_role} Readiness: "
+                f"{readiness_score:.0f}%"
+            )
+
+            st.progress(readiness_score / 100)
+
+            st.write(
+                f"{len(found_skills)} of "
+                f"{total_required_skills} required skills found."
             )
 
             col1, col2 = st.columns(2)
@@ -204,7 +225,6 @@ if uploaded_file is not None:
                         "were detected."
                     )
 
-
             with col2:
 
                 st.subheader("❌ Missing Skills")
@@ -219,7 +239,6 @@ if uploaded_file is not None:
                     st.success(
                         "No missing skills for this role!"
                     )
-
 
             # -----------------------------------------
             # LEARNING ROADMAP
@@ -250,20 +269,17 @@ if uploaded_file is not None:
                     "skills for this role!"
                 )
 
-
         else:
 
             st.warning(
                 "No text could be extracted from this resume."
             )
 
-
     except Exception as e:
 
         st.error(
             f"An error occurred while analyzing the resume: {e}"
         )
-
 
 else:
 
