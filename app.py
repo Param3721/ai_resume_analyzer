@@ -88,11 +88,13 @@ if uploaded_file is not None:
                 height=250
             )
 
+
             # -----------------------------------------
             # CLEAN TEXT
             # -----------------------------------------
 
             cleaned_text = clean_text(resume_text)
+
 
             # -----------------------------------------
             # SKILL EXTRACTION
@@ -118,6 +120,7 @@ if uploaded_file is not None:
                 st.warning(
                     "No matching skills were found in the resume."
                 )
+
 
             # -----------------------------------------
             # JOB ROLE RECOMMENDATIONS
@@ -153,6 +156,7 @@ if uploaded_file is not None:
                     "No suitable job-role matches were found."
                 )
 
+
             # -----------------------------------------
             # TARGET ROLE
             # -----------------------------------------
@@ -171,6 +175,7 @@ if uploaded_file is not None:
                     "Computer Vision Engineer"
                 ]
             )
+
 
             # -----------------------------------------
             # SKILL GAP ANALYSIS
@@ -195,6 +200,7 @@ if uploaded_file is not None:
 
                 readiness_score = 0
 
+
             st.write(
                 f"### {target_role} Readiness: "
                 f"{readiness_score:.0f}%"
@@ -207,7 +213,9 @@ if uploaded_file is not None:
                 f"{total_required_skills} required skills found."
             )
 
+
             col1, col2 = st.columns(2)
+
 
             with col1:
 
@@ -225,6 +233,7 @@ if uploaded_file is not None:
                         "were detected."
                     )
 
+
             with col2:
 
                 st.subheader("❌ Missing Skills")
@@ -240,6 +249,7 @@ if uploaded_file is not None:
                         "No missing skills for this role!"
                     )
 
+
             # -----------------------------------------
             # LEARNING ROADMAP
             # -----------------------------------------
@@ -254,13 +264,23 @@ if uploaded_file is not None:
 
                 for item in roadmap:
 
-                    st.write(
-                        f"**{item['Week']} — {item['Topic']}**"
+                    st.subheader(
+                        f"{item['Week']} — {item['Topic']}"
                     )
 
                     st.write(
-                        f"🎯 {item['Goal']}"
+                        f"🎯 **Goal:** {item['Goal']}"
                     )
+
+                    st.write(
+                        f"📚 **Topics:** {item['Topics']}"
+                    )
+
+                    st.write(
+                        f"🛠️ **Practice:** {item['Practice']}"
+                    )
+
+                    st.markdown("---")
 
             else:
 
@@ -269,17 +289,20 @@ if uploaded_file is not None:
                     "skills for this role!"
                 )
 
+
         else:
 
             st.warning(
                 "No text could be extracted from this resume."
             )
 
+
     except Exception as e:
 
         st.error(
             f"An error occurred while analyzing the resume: {e}"
         )
+
 
 else:
 
