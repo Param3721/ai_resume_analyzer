@@ -5,6 +5,7 @@ from text_cleaner import clean_text
 from skill_extractor import extract_skills
 from job_matcher import calculate_match_scores
 from roadmap_generator import generate_skill_gap, generate_roadmap
+from section_extractor import extract_sections
 
 
 # -------------------------------------------------
@@ -34,6 +35,7 @@ st.sidebar.markdown("---")
 st.sidebar.write("### Project Features")
 
 st.sidebar.write("✅ Resume Text Extraction")
+st.sidebar.write("✅ Resume Section Detection")
 st.sidebar.write("✅ Skill Detection")
 st.sidebar.write("✅ Job Role Matching")
 st.sidebar.write("✅ Skill Gap Analysis")
@@ -48,7 +50,8 @@ st.title("📄 AI Resume Analyzer & Job Recommendation System")
 
 st.write(
     "Upload your resume to analyze your skills, "
-    "compare them with job roles, and identify skill gaps."
+    "compare them with job roles, identify important resume "
+    "sections, and find skill gaps."
 )
 
 st.markdown("---")
@@ -97,6 +100,70 @@ if uploaded_file is not None:
 
 
             # -----------------------------------------
+            # RESUME SECTION EXTRACTION
+            # -----------------------------------------
+
+            resume_sections = extract_sections(resume_text)
+
+            st.markdown("---")
+
+            st.header("2. Resume Sections")
+
+            section_col1, section_col2, section_col3 = st.columns(3)
+
+
+            with section_col1:
+
+                st.subheader("🎓 Education")
+
+                if resume_sections["Education"]:
+
+                    st.write(
+                        resume_sections["Education"]
+                    )
+
+                else:
+
+                    st.info(
+                        "Education section not detected."
+                    )
+
+
+            with section_col2:
+
+                st.subheader("💼 Experience")
+
+                if resume_sections["Experience"]:
+
+                    st.write(
+                        resume_sections["Experience"]
+                    )
+
+                else:
+
+                    st.info(
+                        "Experience section not detected."
+                    )
+
+
+            with section_col3:
+
+                st.subheader("🛠 Projects")
+
+                if resume_sections["Projects"]:
+
+                    st.write(
+                        resume_sections["Projects"]
+                    )
+
+                else:
+
+                    st.info(
+                        "Projects section not detected."
+                    )
+
+
+            # -----------------------------------------
             # SKILL EXTRACTION
             # -----------------------------------------
 
@@ -104,7 +171,7 @@ if uploaded_file is not None:
 
             st.markdown("---")
 
-            st.header("2. Detected Skills")
+            st.header("3. Detected Skills")
 
             if detected_skills:
 
@@ -128,7 +195,7 @@ if uploaded_file is not None:
 
             st.markdown("---")
 
-            st.header("3. Job Role Recommendations")
+            st.header("4. Job Role Recommendations")
 
             match_results = calculate_match_scores(cleaned_text)
 
@@ -163,7 +230,7 @@ if uploaded_file is not None:
 
             st.markdown("---")
 
-            st.header("4. Target Role Skill Gap Analysis")
+            st.header("5. Target Role Skill Gap Analysis")
 
             target_role = st.selectbox(
                 "Select your target job role",
@@ -256,7 +323,7 @@ if uploaded_file is not None:
 
             st.markdown("---")
 
-            st.header("5. Learning Roadmap")
+            st.header("6. Learning Roadmap")
 
             if missing_skills:
 
