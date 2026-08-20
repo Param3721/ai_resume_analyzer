@@ -1,108 +1,177 @@
-# AI Resume Analyzer & Job Recommendation System
+# 📄 AI Resume Analyzer & Job Recommendation System
 
-An AI-based resume analysis system built using Python, NLP, Machine Learning, and Streamlit.
+An intelligent resume analysis application built using **Python, Streamlit, NLP, TF-IDF, and Machine Learning techniques**.
 
-The application analyzes a user's resume, detects technical skills, recommends suitable job roles, identifies missing skills for a selected target role, calculates job readiness, and generates a personalized learning roadmap.
+The system analyzes a user's resume, detects technical skills, recommends suitable job roles, identifies missing skills, calculates job readiness, and generates a personalized learning roadmap.
 
 ---
 
-## Project Overview
+## 🚀 Live Demo
 
-Finding the right job role from a resume can be difficult because resumes contain different skills, technologies, and experiences.
+The application is deployed using **Streamlit Community Cloud**.
 
-This project provides a simple system that automatically analyzes a resume and helps the user understand:
+### 🔗 Live Application
 
-- Skills detected in the resume
-- Suitable job roles
-- Job-role match percentages
-- Skills required for a target role
-- Skills currently missing
-- Target-role readiness percentage
+https://param-ai-resume-analyzer.streamlit.app
+
+---
+
+## 🎯 Project Objective
+
+The main objective of this project is to help students and job seekers understand how well their current skills match different technical job roles.
+
+The application automatically analyzes an uploaded resume and provides:
+
+- Resume text extraction
+- Resume section detection
+- Technical skill detection
+- Job role recommendations
+- Job match scores
+- Skill gap analysis
+- Target role readiness score
 - Personalized learning roadmap
 
-The application supports resumes in both **PDF** and **DOCX** formats.
+---
+
+## ✨ Project Features
+
+### 📄 1. Resume Text Extraction
+
+The user can upload a resume in:
+
+- PDF
+- DOCX
+
+The application automatically extracts the text from the uploaded resume.
 
 ---
 
-## Features
+### 📑 2. Resume Section Detection
 
-### 1. Resume Text Extraction
+The system detects important sections of the resume such as:
 
-The user can upload a PDF or DOCX resume.
+- Education
+- Experience
+- Projects
 
-The application extracts the text from the uploaded resume for further analysis.
+This helps organize and understand the resume content.
 
-### 2. Text Cleaning
+---
 
-The extracted resume text is cleaned and normalized before skill detection and job matching.
+### 🧠 3. Skill Detection
 
-### 3. Skill Detection
+The system identifies technical skills present in the resume using a predefined skill dictionary.
 
-The system detects technical skills from the resume using a predefined skill dictionary.
-
-Examples include:
+Some examples include:
 
 - Python
+- C++
+- Java
 - SQL
 - Pandas
 - NumPy
+- Matplotlib
+- Power BI
+- Excel
 - Machine Learning
 - Deep Learning
 - NLP
-- Power BI
+- LLM
+- OpenCV
 - Docker
 - Git
+- GitHub
 - APIs
 
-### 4. Job Role Recommendation
+---
 
-The system recommends the top three job roles based on the contents of the resume.
+## 💼 4. Job Role Recommendation
 
-Currently supported roles include:
+The application compares the resume with predefined technical job roles and recommends the **Top 3 most suitable roles**.
 
+The current system supports roles such as:
+
+- AI Engineer
 - Data Analyst
 - Machine Learning Engineer
-- AI Engineer
 - NLP Engineer
 - Computer Vision Engineer
 
-### 5. Hybrid Job Matching
+The recommendations are displayed with match percentages and progress bars.
 
-The job-matching system combines two methods:
+---
 
-- **70% Skill Overlap**
-- **30% TF-IDF Cosine Similarity**
+## 📊 5. Hybrid Job Matching Algorithm
 
-This allows the application to consider both the required technical skills and the similarity between resume content and job requirements.
+The job recommendation system uses a hybrid matching approach.
 
-### 6. Match Score Visualization
+The final job match score combines:
 
-The top three recommended roles are displayed with percentage scores and Streamlit progress bars.
+```text
+70% Skill Overlap
++
+30% TF-IDF Cosine Similarity
+```
 
-### 7. Skill Gap Analysis
+### Skill Overlap
+
+The system checks how many required skills for a particular job role are present in the resume.
+
+### TF-IDF
+
+TF-IDF converts resume text and job-role requirements into numerical vectors.
+
+### Cosine Similarity
+
+Cosine similarity measures how similar the resume vector is to each job-role vector.
+
+The final scores are sorted from highest to lowest to generate the job recommendations.
+
+---
+
+## 🎯 6. Target Role Skill Gap Analysis
 
 The user can select a target job role.
 
-The application then compares the user's detected skills with the skills required for that role and displays:
+The system then compares the skills detected in the resume with the skills required for that role.
 
-- Skills Found
-- Missing Skills
+It displays:
 
-### 8. Job Readiness Score
+### ✅ Skills Found
 
-The application calculates the user's readiness for the selected target role.
+Skills already present in the resume.
 
-For example:
+### ❌ Missing Skills
+
+Important skills that should be learned for the selected role.
+
+---
+
+## 📈 7. Target Role Readiness Score
+
+The application calculates how prepared the user currently is for the selected target role.
+
+The readiness score is calculated using:
 
 ```text
-Data Analyst Readiness: 80%
-4 of 5 required skills found.
+Readiness Score =
+(Number of Required Skills Found / Total Required Skills) × 100
 ```
 
-### 9. Personalized Learning Roadmap
+The result is displayed as a percentage and progress bar.
 
-For every missing skill, the application generates a simple learning roadmap containing:
+The readiness percentage is a project-based skill coverage score and should not be considered a guarantee of employment.
 
+---
+
+## 🗺️ 8. Personalized Learning Roadmap
+
+Based on the missing skills, the application generates a week-wise learning roadmap.
+
+Each roadmap step can contain:
+
+- Week number
+- Skill to learn
 - Learning goal
 - Important topics
 - Practice activity
@@ -112,35 +181,62 @@ Example:
 ```text
 Week 1 — SQL
 
-Goal: Learn SQL for data querying and analysis
+Goal:
+Learn SQL for data querying and analysis
 
-Topics: SELECT, WHERE, GROUP BY, ORDER BY, JOIN
+Topics:
+SELECT, WHERE, GROUP BY, ORDER BY, JOIN
 
-Practice: Practice queries using a sample database
+Practice:
+Practice SQL queries using a sample database
 ```
 
 ---
 
-## Technologies Used
+# 🔄 System Workflow
 
-- Python
-- Streamlit
-- Pandas
-- NumPy
-- scikit-learn
-- TF-IDF Vectorization
-- Cosine Similarity
-- PyPDF
-- python-docx
-- Git
-- GitHub
+The complete application follows this workflow:
+
+```text
+Resume Upload
+      ↓
+Text Extraction
+      ↓
+Text Cleaning
+      ↓
+Resume Section Detection
+      ↓
+Skill Detection
+      ↓
+Hybrid Job Matching
+      ↓
+Top 3 Job Recommendations
+      ↓
+Target Role Selection
+      ↓
+Skill Gap Analysis
+      ↓
+Readiness Score
+      ↓
+Personalized Learning Roadmap
+      ↓
+Streamlit Results
+```
 
 ---
 
-## Project Structure
+# 🏗️ Project Structure
 
 ```text
 ai_resume_analyzer/
+│
+├── app.py
+├── resume_parser.py
+├── text_cleaner.py
+├── section_extractor.py
+├── skill_extractor.py
+├── job_matcher.py
+├── roadmap_generator.py
 │
 ├── data/
 │   ├── job_roles.csv
@@ -150,109 +246,130 @@ ai_resume_analyzer/
 │   ├── test_cases.csv
 │   └── test_job_matching.py
 │
-├── app.py
-├── job_matcher.py
-├── resume_parser.py
-├── roadmap_generator.py
-├── skill_extractor.py
-├── text_cleaner.py
+├── reports/
+│   ├── testing_evaluation.md
+│   └── AI_Resume_Analyzer_Project_Report.docx
+│
 ├── requirements.txt
-├── .gitignore
-└── README.md
+├── README.md
+└── .gitignore
 ```
 
 ---
 
-## How the System Works
+# 🛠️ Technologies Used
 
-The application follows this workflow:
+| Technology | Purpose |
+|---|---|
+| Python | Main programming language |
+| Streamlit | Web application interface |
+| Pandas | CSV and data processing |
+| scikit-learn | TF-IDF and cosine similarity |
+| PyPDF | PDF resume text extraction |
+| python-docx | DOCX resume text extraction |
+| NLP | Resume text processing |
+| Git | Version control |
+| GitHub | Project repository |
+| Streamlit Community Cloud | Application deployment |
+
+---
+
+# 🧩 Main Project Modules
+
+## `app.py`
+
+Controls the Streamlit interface and connects all components of the application.
+
+## `resume_parser.py`
+
+Extracts text from PDF and DOCX resumes.
+
+## `text_cleaner.py`
+
+Cleans and normalizes extracted resume text.
+
+## `section_extractor.py`
+
+Detects common resume sections such as Education, Experience, and Projects.
+
+## `skill_extractor.py`
+
+Detects technical skills from the resume using the skill dictionary.
+
+## `job_matcher.py`
+
+Calculates job-role matching scores using skill overlap and TF-IDF cosine similarity.
+
+## `roadmap_generator.py`
+
+Performs skill-gap analysis and generates the personalized learning roadmap.
+
+---
+
+# 🧪 Testing and Evaluation
+
+The job recommendation system was tested using controlled test cases for the five supported job roles.
+
+The automated test produced:
 
 ```text
-Resume Upload
-      ↓
-Text Extraction
-      ↓
-Text Cleaning
-      ↓
-Skill Detection
-      ↓
-Job Role Matching
-      ↓
-Top 3 Recommendations
-      ↓
-Target Role Selection
-      ↓
-Skill Gap Analysis
-      ↓
-Readiness Score
-      ↓
-Learning Roadmap
+Passed: 5/5
+Accuracy: 100%
+```
+
+The five test cases included:
+
+| Test | Expected Role | Result |
+|---|---|---|
+| 1 | Data Analyst | PASS |
+| 2 | Machine Learning Engineer | PASS |
+| 3 | AI Engineer | PASS |
+| 4 | NLP Engineer | PASS |
+| 5 | Computer Vision Engineer | PASS |
+
+> **Note:** 100% refers only to the five controlled test cases. It does not mean the system has 100% accuracy on all real-world resumes.
+
+The detailed testing report is available at:
+
+```text
+reports/testing_evaluation.md
 ```
 
 ---
 
-## Job Matching Method
+# 💻 Installation
 
-The project uses a hybrid matching approach.
-
-### Skill Overlap
-
-For each job role, the system checks how many required skills are present in the resume.
-
-The skill coverage is calculated as:
-
-```text
-Matched Skills / Total Required Skills
-```
-
-### TF-IDF and Cosine Similarity
-
-TF-IDF converts the resume and job requirements into numerical vectors.
-
-Cosine similarity measures the similarity between the resume vector and each job-role vector.
-
-### Final Match Score
-
-The final score uses:
-
-```text
-Final Match Score =
-70% Skill Overlap + 30% TF-IDF Similarity
-```
-
-The roles are then sorted from highest to lowest match score.
-
----
-
-## Installation
-
-### 1. Clone the Repository
+## 1. Clone the Repository
 
 ```bash
 git clone https://github.com/Param3721/ai_resume_analyzer.git
 ```
 
-### 2. Open the Project Folder
+Move into the project directory:
 
 ```bash
 cd ai_resume_analyzer
 ```
 
-### 3. Create a Virtual Environment
+---
+
+## 2. Create a Virtual Environment
+
+On Windows:
 
 ```bash
 python -m venv venv
 ```
 
-### 4. Activate the Virtual Environment
+Activate it:
 
-For Windows PowerShell:
-
-```powershell
-.\venv\Scripts\Activate.ps1
+```bash
+venv\Scripts\activate
 ```
 
-### 5. Install Dependencies
+---
+
+## 3. Install Required Libraries
 
 ```bash
 pip install -r requirements.txt
@@ -260,95 +377,132 @@ pip install -r requirements.txt
 
 ---
 
-## Running the Application
-
-Start the Streamlit application using:
+## 4. Run the Application
 
 ```bash
 streamlit run app.py
 ```
 
-Streamlit will provide a local address, usually:
-
-```text
-http://localhost:8501
-```
-
-Open it in a web browser and upload a PDF or DOCX resume.
+Streamlit will open the application in your browser.
 
 ---
 
-## Testing
+# 🧪 Running the Automated Test
 
-A basic job recommendation test suite is included in the `tests` folder.
-
-Run the tests using:
+Run:
 
 ```bash
 python tests/test_job_matching.py
 ```
 
-The test dataset contains five test cases representing the five supported job roles.
-
-Current test result:
+The current controlled test set should produce:
 
 ```text
 Passed: 5/5
 Accuracy: 100%
 ```
 
-This result refers to the project's predefined test cases and should not be interpreted as general real-world model accuracy.
+---
+
+# 📦 Main Dependencies
+
+The project uses:
+
+```text
+streamlit
+pypdf
+python-dotenv
+google-generativeai
+python-docx
+scikit-learn
+pandas
+```
+
+The exact environment requirements are maintained in:
+
+```text
+requirements.txt
+```
 
 ---
 
-## Example Output
+# ⚠️ Current Limitations
 
-For a sample technical resume, the application can display results such as:
+The current version has some limitations:
 
-```text
-Detected Skills:
-Python, C++, Pandas, NumPy, Matplotlib, Power BI,
-Excel, Machine Learning, Deep Learning, NLP,
-LLM, Docker, Git, GitHub, APIs
-```
-
-Example job recommendations:
-
-```text
-1. AI Engineer — 61.37% Match
-2. Data Analyst — 60.10% Match
-3. Machine Learning Engineer — 49.09% Match
-```
-
-The exact results depend on the uploaded resume and the job-role data.
+1. The number of supported job roles is limited.
+2. Skill detection depends on the predefined skill dictionary.
+3. Resume section detection depends on recognizable section headings.
+4. TF-IDF has limited understanding of semantic meaning.
+5. The automated evaluation currently contains only five controlled test cases.
+6. Real-world resumes can have very different formats and writing styles.
+7. Match and readiness percentages are recommendation scores, not guarantees of employability.
 
 ---
 
-## Future Improvements
+# 🔮 Future Improvements
 
-The project can be extended in the future by adding:
+Future versions of the project can include:
 
 - More job roles
-- Larger skill dictionaries
-- More advanced NLP techniques
-- Semantic similarity using embeddings
-- Resume quality feedback
-- Job description upload and comparison
-- More extensive automated testing
-- Cloud deployment
+- Larger skill datasets
+- Sentence-transformer embeddings
+- Semantic resume matching
+- Job-description upload and comparison
+- Resume improvement suggestions
+- More advanced resume section detection
+- Larger automated testing datasets
+- Improved NLP-based skill extraction
 
 ---
 
-## Conclusion
+# 📄 Project Report
 
-The AI Resume Analyzer & Job Recommendation System demonstrates how NLP and Machine Learning techniques can be used to analyze resumes and provide career-related recommendations.
+The complete project report is available inside:
 
-The project combines resume parsing, skill extraction, TF-IDF, cosine similarity, skill-gap analysis, and a learning roadmap in an interactive Streamlit application.
+```text
+reports/AI_Resume_Analyzer_Project_Report.docx
+```
+
+The testing and evaluation report is available inside:
+
+```text
+reports/testing_evaluation.md
+```
 
 ---
 
-## Author
+# 🌐 Deployment
+
+The application is deployed on **Streamlit Community Cloud**.
+
+Live application:
+
+https://param-ai-resume-analyzer.streamlit.app
+
+---
+
+# 👨‍💻 Author
 
 **Param Malhotra**
 
-AI Resume Analyzer & Job Recommendation System
+GitHub: **Param3721**
+
+---
+
+# 📌 Project Status
+
+✅ Resume Upload  
+✅ Text Extraction  
+✅ Resume Section Detection  
+✅ Skill Detection  
+✅ Hybrid Job Matching  
+✅ Top 3 Job Recommendations  
+✅ Skill Gap Analysis  
+✅ Readiness Score  
+✅ Personalized Learning Roadmap  
+✅ Automated Testing  
+✅ Project Documentation  
+✅ Streamlit Cloud Deployment  
+
+**Project successfully completed and deployed.**
