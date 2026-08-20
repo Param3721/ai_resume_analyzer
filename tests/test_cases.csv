@@ -1,0 +1,6 @@
+Test Case,Resume Skills,Expected Top Role
+1,"Python, Pandas, Excel, Power BI, SQL",Data Analyst
+2,"Python, Machine Learning, scikit-learn, Docker, FastAPI",Machine Learning Engineer
+3,"Python, Machine Learning, Deep Learning, LLM, RAG, APIs",AI Engineer
+4,"Python, NLP, Transformers, Hugging Face, Machine Learning",NLP Engineer
+5,"Python, OpenCV, CNN, YOLO, Deep Learning",Computer Vision Engineer
