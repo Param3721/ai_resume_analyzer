@@ -7,6 +7,7 @@ from job_matcher import calculate_match_scores
 from roadmap_generator import generate_skill_gap, generate_roadmap
 
 
+# Page configuration
 st.set_page_config(
     page_title="AI Resume Analyzer",
     page_icon="📄",
@@ -14,6 +15,26 @@ st.set_page_config(
 )
 
 
+# Sidebar
+st.sidebar.title("📄 Resume Analyzer")
+
+st.sidebar.write(
+    "Analyze your resume, discover suitable job roles, "
+    "identify skill gaps, and create a learning roadmap."
+)
+
+st.sidebar.markdown("---")
+
+st.sidebar.write("### Project Features")
+
+st.sidebar.write("✅ Resume Text Extraction")
+st.sidebar.write("✅ Skill Detection")
+st.sidebar.write("✅ Job Role Matching")
+st.sidebar.write("✅ Skill Gap Analysis")
+st.sidebar.write("✅ Learning Roadmap")
+
+
+# Main title
 st.title("📄 AI Resume Analyzer & Job Recommendation System")
 
 st.write(
@@ -22,6 +43,7 @@ st.write(
 )
 
 
+# Resume upload
 st.header("1. Upload Your Resume")
 
 uploaded_file = st.file_uploader(
@@ -35,6 +57,8 @@ if uploaded_file is not None:
     st.success(f"Uploaded: {uploaded_file.name}")
 
     try:
+
+        # Extract resume text
         resume_text = extract_resume_text(uploaded_file)
 
         if resume_text.strip():
@@ -47,7 +71,7 @@ if uploaded_file is not None:
                 height=250
             )
 
-            # Clean the resume text
+            # Clean text
             cleaned_text = clean_text(resume_text)
 
             # Extract skills
@@ -162,6 +186,7 @@ if uploaded_file is not None:
                     "You already have all the required skills "
                     "for this role!"
                 )
+
 
         else:
 
