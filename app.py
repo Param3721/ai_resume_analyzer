@@ -7,7 +7,10 @@ from job_matcher import calculate_match_scores
 from roadmap_generator import generate_skill_gap, generate_roadmap
 
 
-# Page configuration
+# -------------------------------------------------
+# PAGE CONFIGURATION
+# -------------------------------------------------
+
 st.set_page_config(
     page_title="AI Resume Analyzer",
     page_icon="📄",
@@ -15,7 +18,10 @@ st.set_page_config(
 )
 
 
-# Sidebar
+# -------------------------------------------------
+# SIDEBAR
+# -------------------------------------------------
+
 st.sidebar.title("📄 Resume Analyzer")
 
 st.sidebar.write(
@@ -34,7 +40,10 @@ st.sidebar.write("✅ Skill Gap Analysis")
 st.sidebar.write("✅ Learning Roadmap")
 
 
-# Main title
+# -------------------------------------------------
+# MAIN PAGE
+# -------------------------------------------------
+
 st.title("📄 AI Resume Analyzer & Job Recommendation System")
 
 st.write(
@@ -42,28 +51,36 @@ st.write(
     "compare them with job roles, and identify skill gaps."
 )
 
+st.markdown("---")
 
-# Resume upload
+
+# -------------------------------------------------
+# RESUME UPLOAD
+# -------------------------------------------------
+
 st.header("1. Upload Your Resume")
 
 uploaded_file = st.file_uploader(
-    "Upload your resume",
+    "Upload your resume (PDF or DOCX)",
     type=["pdf", "docx"]
 )
 
 
 if uploaded_file is not None:
 
-    st.success(f"Uploaded: {uploaded_file.name}")
+    st.success(f"✅ Uploaded: {uploaded_file.name}")
 
     try:
 
-        # Extract resume text
+        # -----------------------------------------
+        # EXTRACT RESUME TEXT
+        # -----------------------------------------
+
         resume_text = extract_resume_text(uploaded_file)
 
         if resume_text.strip():
 
-            st.subheader("Extracted Resume Text")
+            st.subheader("📄 Extracted Resume Text")
 
             st.text_area(
                 "Resume Content",
@@ -71,13 +88,23 @@ if uploaded_file is not None:
                 height=250
             )
 
-            # Clean text
+
+            # -----------------------------------------
+            # CLEAN TEXT
+            # -----------------------------------------
+
             cleaned_text = clean_text(resume_text)
 
-            # Extract skills
+
+            # -----------------------------------------
+            # SKILL EXTRACTION
+            # -----------------------------------------
+
             detected_skills = extract_skills(cleaned_text)
 
-            st.subheader("Detected Skills")
+            st.markdown("---")
+
+            st.header("2. Detected Skills")
 
             if detected_skills:
 
@@ -90,34 +117,56 @@ if uploaded_file is not None:
 
             else:
 
-                st.warning("No matching skills were found.")
+                st.warning(
+                    "No matching skills were found in the resume."
+                )
 
 
-            # Job recommendations
-            st.subheader("Job Role Recommendations")
+            # -----------------------------------------
+            # JOB ROLE RECOMMENDATIONS
+            # -----------------------------------------
+
+            st.markdown("---")
+
+            st.header("3. Job Role Recommendations")
 
             match_results = calculate_match_scores(cleaned_text)
 
             if match_results:
 
-                st.write("### Recommended Roles")
+                st.write("### Top 3 Recommended Roles")
 
                 for index, result in enumerate(
                     match_results[:3],
                     start=1
                 ):
 
+                    role = result["Job Role"]
+                    score = result["Match Score"]
+
                     st.write(
-                        f"**{index}. {result['Job Role']} — "
-                        f"{result['Match Score']}%**"
+                        f"**{index}. {role} — {score}% Match**"
                     )
 
+                    st.progress(score / 100)
 
-            # Target role
-            st.subheader("Target Role Skill Gap Analysis")
+            else:
+
+                st.warning(
+                    "No suitable job-role matches were found."
+                )
+
+
+            # -----------------------------------------
+            # TARGET ROLE
+            # -----------------------------------------
+
+            st.markdown("---")
+
+            st.header("4. Target Role Skill Gap Analysis")
 
             target_role = st.selectbox(
-                "Select a target job role",
+                "Select your target job role",
                 [
                     "Data Analyst",
                     "Machine Learning Engineer",
@@ -128,18 +177,20 @@ if uploaded_file is not None:
             )
 
 
+            # -----------------------------------------
+            # SKILL GAP ANALYSIS
+            # -----------------------------------------
+
             found_skills, missing_skills = generate_skill_gap(
                 detected_skills,
                 target_role
             )
 
-
             col1, col2 = st.columns(2)
-
 
             with col1:
 
-                st.write("### Skills Found")
+                st.subheader("✅ Skills Found")
 
                 if found_skills:
 
@@ -148,12 +199,15 @@ if uploaded_file is not None:
 
                 else:
 
-                    st.write("No required skills found.")
+                    st.info(
+                        "No required skills for this role "
+                        "were detected."
+                    )
 
 
             with col2:
 
-                st.write("### Missing Skills")
+                st.subheader("❌ Missing Skills")
 
                 if missing_skills:
 
@@ -162,11 +216,18 @@ if uploaded_file is not None:
 
                 else:
 
-                    st.write("No missing skills!")
+                    st.success(
+                        "No missing skills for this role!"
+                    )
 
 
-            # Learning roadmap
-            st.subheader("Learning Roadmap")
+            # -----------------------------------------
+            # LEARNING ROADMAP
+            # -----------------------------------------
+
+            st.markdown("---")
+
+            st.header("5. Learning Roadmap")
 
             if missing_skills:
 
@@ -175,16 +236,18 @@ if uploaded_file is not None:
                 for item in roadmap:
 
                     st.write(
-                        f"**{item['Week']}** — "
-                        f"{item['Topic']}: "
-                        f"{item['Goal']}"
+                        f"**{item['Week']} — {item['Topic']}**"
+                    )
+
+                    st.write(
+                        f"🎯 {item['Goal']}"
                     )
 
             else:
 
                 st.success(
-                    "You already have all the required skills "
-                    "for this role!"
+                    "🎉 You already have all the required "
+                    "skills for this role!"
                 )
 
 
@@ -197,4 +260,13 @@ if uploaded_file is not None:
 
     except Exception as e:
 
-        st.error(f"Error reading resume: {e}")
+        st.error(
+            f"An error occurred while analyzing the resume: {e}"
+        )
+
+
+else:
+
+    st.info(
+        "👆 Upload a PDF or DOCX resume to begin the analysis."
+    )
